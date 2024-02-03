@@ -4,9 +4,9 @@ from llama_index.llms import OpenAI
 import openai
 from llama_index import SimpleDirectoryReader
 
-st.set_page_config(page_title="Find your path with the vedas, powered by AI", page_icon="", layout="centered", initial_sidebar_state="auto", menu_items=None)
+st.set_page_config(page_title="QA helper, powered by AI", page_icon="", layout="centered", initial_sidebar_state="auto", menu_items=None)
 openai.api_key = st.secrets.openai_key
-st.title("Find your path as described in the vedas, powered by AI")
+st.title("QA helper, powered by AI")
 st.info("Write atleast two sentences regarding what you want to talk about. If you give more clarity about what you want, then the answers will be better. )", icon="📃")
          
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
@@ -37,10 +37,10 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 @st.cache_resource(show_spinner=False)
 def load_data():
-    with st.spinner(text="Loading and indexing the docs – hang tight! This should take 1-2 minutes."):
+    with st.spinner(text="Loading and indexing the docs – hang tight! This should take 2-10 minutes."):
         reader = SimpleDirectoryReader(input_dir="./data", recursive=True)
         docs = reader.load_data()
-        service_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-4", temperature=0.3, system_prompt="You are an expert on old texts of indian spirituality like vedas, ramayana, etc. Assume that all questions are related to the the documents. Keep your answers spirital and based on texts – do not hallucinate features. wherever possible give a brief citation from relevant text. the user is a hindu with deep respect for the religion and considers the text as gods words. never disrespect the texts"))
+        service_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-4", temperature=0.3, system_prompt="You are a quality assurance manager at a chemical plant. Assume that all questions are related to the the documents. Keep your answers based on texts – do not hallucinate features. wherever possible give a brief citation from relevant text. the user is an employee and wants relevant information to carry on his tasks. If asked for a format, give html table with the relevant data."))
         index = VectorStoreIndex.from_documents(docs, service_context=service_context)
         return index
 
