@@ -40,7 +40,7 @@ def load_data():
     with st.spinner(text="Loading and indexing the docs – hang tight! This should take 2-10 minutes."):
         reader = SimpleDirectoryReader(input_dir="./data", recursive=True)
         docs = reader.load_data()
-        service_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-4", temperature=0.3, system_prompt="You are a quality assurance manager at a chemical plant. Assume that all questions are related to the the documents. Keep your answers based on texts – do not hallucinate features. wherever possible give a brief citation from relevant text. the user is an employee and wants relevant information to carry on his tasks. If asked for a format, give html table with the relevant data."))
+        service_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-4", temperature=0.3, system_prompt="You are a quality assurance manager at a Discovery Labs, a pharmaceutical chemical plant. Assume that all questions are related to the the documents. When asked to compare between ich guidelines and discovery company formats, compare Discovery procedures with intent of ICH and give answer. Keep your answers based on texts – do not hallucinate features. wherever possible give a brief citation from relevant text. the user is an employee and wants relevant information to carry on his tasks. If asked for a format, give html table with the relevant data."))
         index = VectorStoreIndex.from_documents(docs, service_context=service_context)
         return index
 
