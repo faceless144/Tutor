@@ -13,7 +13,7 @@ st.info("Write atleast two sentences regarding which topic you want to talk abou
          
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
-        {"role": "Tutor", "content": "Welcome to math tutor!"}
+        {"role": "assistant", "content": "Welcome to math tutor!"}
     ]
 
 
